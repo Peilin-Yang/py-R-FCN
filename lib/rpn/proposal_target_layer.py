@@ -56,7 +56,7 @@ class ProposalTargetLayer(caffe.Layer):
                 'Only single item batches are supported'
 
         rois_per_image = np.inf if cfg.TRAIN.BATCH_SIZE == -1 else cfg.TRAIN.BATCH_SIZE
-        fg_rois_per_image = np.round(cfg.TRAIN.FG_FRACTION * rois_per_image)
+        fg_rois_per_image = np.round(cfg.TRAIN.FG_FRACTION * rois_per_image).astype(np.int)
 
         # Sample rois with classification labels and bounding box regression
         # targets
@@ -126,7 +126,7 @@ def _get_bbox_regression_labels(bbox_target_data, num_classes):
         bbox_inside_weights (ndarray): N x 4K blob of loss weights
     """
 
-    clss = bbox_target_data[:, 0]
+    clss = bbox_target_data[:, 0].astype(np.int)
     bbox_targets = np.zeros((clss.size, 4 * num_classes), dtype=np.float32)
     # print 'proposal_target_layer:', bbox_targets.shape
     bbox_inside_weights = np.zeros(bbox_targets.shape, dtype=np.float32)
