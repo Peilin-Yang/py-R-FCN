@@ -23,6 +23,12 @@ EXTRA_ARGS=${array[@]:3:$len}
 EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
 case $DATASET in
+  bib)
+    TRAIN_IMDB="bib_500X500_training"
+    TEST_IMDB="bib_500X500_testing"
+    PT_DIR="bib"
+    ITERS=70000
+    ;;
   pascal_voc)
     TRAIN_IMDB="voc_0712_trainval"
     TEST_IMDB="voc_0712_test"
