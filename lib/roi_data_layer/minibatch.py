@@ -107,10 +107,9 @@ def _sample_rois(roidb, fg_rois_per_image, rois_per_image, num_classes):
     # Compute number of background RoIs to take from this image (guarding
     # against there being fewer than desired)
     bg_rois_per_this_image = rois_per_image - fg_rois_per_this_image
-    bg_rois_per_this_image = np.minimum(bg_rois_per_this_image,
-                                        bg_inds.size)
+    bg_rois_per_this_image = int(np.minimum(bg_rois_per_this_image,
+                                        bg_inds.size))
     # Sample foreground regions without replacement
-    print(bg_inds, bg_rois_per_this_image)
     if bg_inds.size > 0:
         bg_inds = npr.choice(
                 bg_inds, size=bg_rois_per_this_image, replace=False)
