@@ -47,6 +47,11 @@ class bib_detect(imdb):
                 index + self._image_ext)
         if os.path.exists(image_path):
             return image_path
+
+        image_path = os.path.join(self._source_folder, 
+                index + self._image_ext)
+        if os.path.exists(image_path):
+            return image_path
         print('image %s does exist....' % image_path)
         return None
 
@@ -55,7 +60,7 @@ class bib_detect(imdb):
         List all files in the folder
         """
         excluded = set()
-        if self._exclude_mappings:
+        if self._exclude_mappings and os.path.exists(self._exclude_mappings):
             with open(self._exclude_mappings) as f:
                 mapping = json.load(f)
                 for _type in mapping: # training or testing
