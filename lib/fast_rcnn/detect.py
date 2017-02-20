@@ -264,7 +264,10 @@ def detect(net, imdb, output_fn, max_per_image=100, thresh=0.05):
         for j in xrange(1, imdb.num_classes):
             inds = np.where(scores[:, j] > thresh)[0]
             cls_scores = scores[inds, j]
-            cls_boxes = boxes[inds, j*4:(j+1)*4]
+            if cfg.TEST.AGNOSTIC:
+                cls_boxes = boxes[inds, 4:8]
+            else:
+                cls_boxes = boxes[inds, j*4:(j+1)*4]
             cls_dets = np.hstack((cls_boxes, cls_scores[:, np.newaxis])) \
                 .astype(np.float32, copy=False)
             keep = nms(cls_dets, cfg.TEST.NMS)
@@ -282,9 +285,9 @@ def detect(net, imdb, output_fn, max_per_image=100, thresh=0.05):
                     all_boxes[j][i] = all_boxes[j][i][keep, :]
         _t['misc'].toc()
 
-        # print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
-        #       .format(i + 1, num_images, _t['im_detect'].average_time,
-        #               _t['misc'].average_time)
+        print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
+              .format(i + 1, num_images, _t['im_detect'].average_time,
+                      _t['misc'].average_time)
 
     for cls_ind, cls in enumerate(imdb.classes):
             if cls == '__background__':
