@@ -257,7 +257,6 @@ def detect(net, imdb, output_fn, max_per_image=100, thresh=0.05):
         im = cv2.imread(im_path)
         _t['im_detect'].tic()
         scores, boxes = im_detect(net, im, box_proposals)
-        print(im_path, scores)
         _t['im_detect'].toc()
 
         _t['misc'].tic()
@@ -285,8 +284,6 @@ def detect(net, imdb, output_fn, max_per_image=100, thresh=0.05):
                     keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
                     all_boxes[j][i] = all_boxes[j][i][keep, :]
         _t['misc'].toc()
-        print(all_boxes)
-        exit()
 
         print 'im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
               .format(i + 1, num_images, _t['im_detect'].average_time,
