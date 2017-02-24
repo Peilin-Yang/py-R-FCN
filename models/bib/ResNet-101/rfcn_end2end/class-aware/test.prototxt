@@ -7131,7 +7131,7 @@ layer {
     type: "PSROIPooling"
     psroi_pooling_param {
         spatial_scale: 0.0625
-        output_dim: 8
+        output_dim: 84
         group_size: 7
     }
 }
@@ -7178,7 +7178,7 @@ layer {
     reshape_param {
         shape {
             dim: -1
-            dim: 8
+            dim: 84
         }
     }
 }
