@@ -1,4 +1,4 @@
-train_net: "models/bib/ResNet-101/rfcn_alt_opt_5step_ohem/stage3_rpn_train.pt"
+train_net: "models/pascal_voc/ResNet-101/rfcn_alt_opt_5step_ohem/stage3_rpn_train.pt"
 
 base_lr: 0.001
 lr_policy: "step"
