@@ -1,4 +1,4 @@
-name: "ResNet101"
+aname: "ResNet101"
 
 input: "data"
 input_shape {
@@ -7029,7 +7029,7 @@ layer {
             type: "constant"
             value: 0
         }
-    }
+ QSAZ   }
     param {
         lr_mult: 1.0
     }
@@ -7105,7 +7105,7 @@ layer {
     type: "PSROIPooling"
     psroi_pooling_param {
         spatial_scale: 0.0625
-        output_dim: 21
+        output_dim: 2
         group_size: 7
     }
 }
